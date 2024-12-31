@@ -36,4 +36,21 @@ public class DoctorController {
         Doctor doctor= doctorDb.get(id);
         return doctor;
     }
+    @DeleteMapping("/delete/{id}")
+    public String deleteDoctorById(@PathVariable int id){
+     doctorDb.remove(id);
+     return "Doctor deleted successfully with id : "+id;
+    }
+    @PutMapping("/update/{id}")
+    public String updateDoctor(@PathVariable int id , @RequestBody Doctor updateDoctorRequest){
+        // check if the doctor is present or not
+        // if doctor is present update else do not update
+        Doctor doctor= doctorDb.get(id);
+        if(doctor!=null){
+            doctorDb.put(updateDoctorRequest.getId(),updateDoctorRequest);
+            return "Doctor id found and updated";
+        }else {
+            return "Doctor is not found to update";
+        }
+    }
 }
