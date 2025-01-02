@@ -27,4 +27,21 @@ public class PatientController {
         Patient patient=patientDb.get(id);
         return  patient;
     }
+    @DeleteMapping("/delete/{id}")
+    public String deletePatientById(@PathVariable int id){
+        patientDb.remove(id);
+        return "Patient Deleted successfully By id : "+id;
+    }
+    @PutMapping("/update/{id}")
+    public String updatePatient(@PathVariable int id,@RequestBody Patient updatePatientRequest){
+        // if the patient is present or not
+        // if patient is present the  update else not
+        Patient patient=patientDb.get(id);
+        if(patient!=null){
+            patientDb.put(updatePatientRequest.getId(), updatePatientRequest);
+            return "Patient is updated successfully";
+        }else {
+            return "Patient is not found to update";
+        }
+    }
 }
